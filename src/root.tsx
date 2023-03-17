@@ -15,9 +15,14 @@ import { App } from './components/App';
 import { languageDict } from './lib/language';
 import { subToAuth } from './lib/supabase';
 import { CacheProvider } from './lib/cache-resource';
+import { setThemeMode, subToTheme } from './lib/theme';
 
 export default function Root() {
   const value = createI18nContext(languageDict, 'en');
+  onMount(() => {
+    subToTheme();
+    setThemeMode(localStorage.getItem('color-schema') || 'dark');
+  });
   subToAuth();
 
   return (
