@@ -4,7 +4,7 @@ import { isMatching, P } from 'ts-pattern';
 
 export const classList = (classes: string[]) => classes.join(' ');
 
-export const mkReq = <T>(url: string, matcher: T) => pipe(
+export const mkReq = <T>(matcher: T, url: string) => pipe(
 	tryCatch<string, P.infer<typeof matcher>>(
 		() => fetch(url).then(res => res.json()),
 		(error: any) => error?.message || error

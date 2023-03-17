@@ -12,7 +12,7 @@ export const Folder = (folder: Props) => {
   
   const FolderButton = () => <button
     class={classList([btn.black, css({ fontSize: 'extraLarge' })])}
-    onClick={() => navigate(`/admin/folders/${folder.id}`)}>
+    onClick={() => navigate(`./${folder.id}`)}>
     {folder.name}
   </button>;
 

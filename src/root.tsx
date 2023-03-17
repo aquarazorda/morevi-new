@@ -1,6 +1,5 @@
 // @refresh reload
 import { createI18nContext, I18nContext } from '@solid-primitives/i18n';
-import { CacheBoundary } from 'solid-cache';
 import { onMount, Suspense } from "solid-js";
 import {
   Body,
@@ -9,24 +8,17 @@ import {
   Html,
   Link,
   Meta,
-  Routes,
   Scripts,
   Title,
 } from "solid-start";
 import { App } from './components/App';
 import { languageDict } from './lib/language';
 import { subToAuth } from './lib/supabase';
-import { setThemeMode, subToTheme } from './lib/theme';
-
+import { CacheProvider } from './lib/cache-resource';
 
 export default function Root() {
   const value = createI18nContext(languageDict, 'en');
   subToAuth();
-
-  onMount(() => {
-    setThemeMode(localStorage.getItem('color-schema') || 'dark');
-    subToTheme();
-  });
 
   return (
     <Html lang="en">
@@ -41,9 +33,9 @@ export default function Root() {
         <Suspense>
           <ErrorBoundary>
             <I18nContext.Provider value={value}>
-              <CacheBoundary>
+              <CacheProvider>
                 <App />
-              </CacheBoundary>
+              </CacheProvider>
             </I18nContext.Provider>
           </ErrorBoundary>
         </Suspense>

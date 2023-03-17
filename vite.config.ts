@@ -4,15 +4,20 @@ import { defineConfig } from 'vite';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 
 export default defineConfig({
+	server: {
+		fs: {
+			strict: true
+		}
+	},
 	plugins: [
 		solid({
-			ssr: true,
-			adapter: vercel({
-				prerender: {
-					expiration: 60
-				}
-			})
+			ssr: true
 		}),
+		// adapter: vercel({
+			// 	prerender: {
+			// 		expiration: 60
+			// 	}
+			// })
 		vanillaExtractPlugin()
 	],
 });
